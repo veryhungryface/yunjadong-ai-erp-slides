@@ -1,5 +1,5 @@
 
-import React, { useMemo, useState } from 'react';
+import React, { useState } from 'react';
 import { createRoot } from 'react-dom/client';
 import { Bot, Building2, DatabaseZap, UsersRound, Rocket, Play, ChevronLeft, ChevronRight, Sparkles, CheckCircle2, AlertTriangle } from 'lucide-react';
 import './style.css';
@@ -16,8 +16,19 @@ const video = {
 
 const slides = [
   {
+    icon: Play,
+    kind: 'intro',
+    kicker: 'Slide 01 · 영상 소개',
+    title: '어떤 영상인가?',
+    headline: '토스 PO 출신 윤용승 대표가 사내 ERP와 AI 에이전트를 직접 만들며 AI 네이티브 회사로 전환한 사례를 다룬 영상입니다.',
+    bullets: ['출처: 빌더 조쉬 Builder Josh', '주제: ERP 내재화 · AI 에이전트 · 업무 자동화', '요약 기준: 공개 메타데이터와 영상 설명 기반'],
+    visual: 'WATCH',
+    image: video.thumb,
+    tone: 'cyan'
+  },
+  {
     icon: Building2,
-    kicker: 'Slide 01',
+    kicker: 'Slide 02 · 내용 요약',
     title: 'ERP를 외주가 아니라 내부 제품으로 본다',
     headline: '사내 운영 시스템도 고객용 제품처럼 직접 설계해야 업무 방식이 바뀐다.',
     bullets: ['반복 업무와 병목을 제품 문제로 정의', '현장 사용자가 매일 쓰는 흐름을 기준으로 개선', '구매/도입보다 빠른 실험과 수정에 초점'],
@@ -26,7 +37,7 @@ const slides = [
   },
   {
     icon: DatabaseZap,
-    kicker: 'Slide 02',
+    kicker: 'Slide 03 · 내용 요약',
     title: '데이터가 모이는 구조가 AI의 출발점',
     headline: 'AI 에이전트는 “정리된 업무 데이터” 위에서 실제 실행력을 얻는다.',
     bullets: ['업무 기록·요청·결재·정산을 한 흐름으로 연결', '흩어진 스프레드시트/메신저 업무를 시스템화', '자동화 가능한 이벤트와 상태값을 명확히 관리'],
@@ -35,7 +46,7 @@ const slides = [
   },
   {
     icon: Bot,
-    kicker: 'Slide 03',
+    kicker: 'Slide 04 · 내용 요약',
     title: 'AI 에이전트는 보조 도구가 아니라 동료',
     headline: '직원들이 AI 비서와 함께 일하도록 업무 인터페이스를 재설계한다.',
     bullets: ['단순 질의응답보다 실제 업무 처리에 연결', '요약·작성·조회·전표/문서 처리 같은 반복 작업 지원', '사람은 판단과 예외 처리에 집중'],
@@ -44,7 +55,7 @@ const slides = [
   },
   {
     icon: UsersRound,
-    kicker: 'Slide 04',
+    kicker: 'Slide 05 · 내용 요약',
     title: '전 직원이 쓰는 자동화가 조직 문화를 바꾼다',
     headline: 'AI 네이티브 회사는 특정 팀만이 아니라 전사 업무 습관을 바꾼다.',
     bullets: ['대표가 직접 만들며 조직의 기준을 제시', '사용자 피드백을 빠르게 반영하는 내부 개발 루프', '자동화 결과가 곧 다음 개선의 데이터가 됨'],
@@ -53,7 +64,7 @@ const slides = [
   },
   {
     icon: Rocket,
-    kicker: 'Slide 05',
+    kicker: 'Slide 06 · 핵심 정리',
     title: '핵심 메시지: 작게 만들고 매일 쓰게 하라',
     headline: '비용을 크게 쓰기보다, 실제 업무 한 장면을 끝까지 자동화하는 것이 출발점이다.',
     bullets: ['가장 자주 반복되는 업무 1개부터 선정', '업무 흐름·데이터·권한·예외를 제품처럼 설계', 'AI 에이전트를 붙여 실행 가능한 자동화로 확장'],
@@ -96,7 +107,7 @@ function App(){
       </div>
     </section>
 
-    <section className={`deck ${s.tone}`}>
+    <section className={`deck ${s.tone} ${s.kind === 'intro' ? 'intro' : ''}`}>
       <div className="deckTop">
         <div><span className="kicker">{s.kicker}</span><h2>{s.title}</h2></div>
         <div className="progress"><span style={{width:progress+'%'}}/></div>
@@ -109,7 +120,7 @@ function App(){
         </div>
         <div className="visualPanel">
           <div className="orb one"></div><div className="orb two"></div><div className="orb three"></div>
-          <div className="terminalBox"><span>company.workflow</span><strong>{s.visual}</strong><em>human decision + ai execution</em></div>
+          {s.image ? <img className="slideImage" src={s.image} alt="영상 썸네일"/> : <div className="terminalBox"><span>company.workflow</span><strong>{s.visual}</strong><em>human decision + ai execution</em></div>}
         </div>
       </div>
       <div className="controls">
